@@ -12,3 +12,4 @@
 2. `cd themeparks-example`
 3. `npm install`
 4. `npm start`
+5. Open browser to `http://localhost:3000`
