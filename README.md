@@ -14,4 +14,4 @@
 4. `npm start`
 5. Open browser to `http://localhost:3000`
 
-![Example Output](https://gyazo.com/02ff9e76ec34167a1ad282801663217f)
+[Example Output](https://gyazo.com/02ff9e76ec34167a1ad282801663217f)
