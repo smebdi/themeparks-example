@@ -5,27 +5,33 @@ const port = 3000
 // include the Themeparks library
 const Themeparks = require("themeparks");
 
+// Create this *ONCE* and re-use this object for the lifetime of your application
+let DisneyWorldMagicKingdom = new Themeparks.Parks.WaltDisneyWorldMagicKingdom();
+
 app.get('/', (req, res) => {
 
-  // configure where SQLite DB sits
-  // optional - will be created in node working directory if not configured
-  // Themeparks.Settings.Cache = __dirname + "/themeparks.db";
-
-  // access a specific park
-  // Create this *ONCE* and re-use this object for the lifetime of your application
-  // re-creating this every time you require access is very slow, and will fetch data repeatedly for no purpose
-  const DisneyWorldMagicKingdom = new Themeparks.Parks.WaltDisneyWorldMagicKingdom();
-
-  // Access wait times by Promise
+  // Access wait times
   (() => {
       DisneyWorldMagicKingdom.GetWaitTimes().then((rideTimes) => {
+
+        // create html container 
         let rides = '<div>'
+
+        // iterate through the wait times results provided from GetWaitTimes
         rideTimes.map((ride) => {
-            rides += `<p>${ride.name}: ${ride.waitTime} minutes wait (${ride.status})</p>`;
+
+            // we're making simple html here so the browser knows how to render it
+            rides += `<h2>${ride.name}</h2>`;
+            rides += `<p>${ride.waitTime} minutes wait.</p>`;
+            rides += `<p style="font-weight: bold">(${ride.status})</p>`;
+            rides += `</br>`
+
         });
         rides += '</div>'
 
+        // ship the string off to the front end
         res.send(rides);
+        
       }).catch((error) => {
           console.error(error);
       })
